@@ -1,1 +1,1 @@
-# booking.com clone website using html css and javascript
+# booking.com clone website using html includes internal css and javascript
