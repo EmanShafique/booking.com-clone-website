@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Profile | Book.pk</title>
+
+<style>
+  body {
+    font-family: Poppins, Arial, sans-serif;
+    background: #eef2ff;
+    margin: 0;
+    padding: 40px 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* CONTAINER */
+  .container {
+    width: 420px;
+    background: white;
+    padding: 25px 30px;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.15);
+    text-align: center;
+  }
+
+  h2 {
+    color: #003580;
+    margin-bottom: 20px;
+  }
+
+  label {
+    font-weight: bold;
+    color: #003580;
+    display: block;
+    text-align: left;
+    margin-left: 5px;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 18px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+  }
+
+  button {
+    width: 48%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+  }
+
+  #saveBtn { background: #003580; }
+  #backBtn { background: #003580; }
+
+  button:hover {
+    opacity: 0.9;
+  }
+
+  /* Profile pic */
+  #profilePic {
+    width: 135px;
+    height: 135px;
+    border-radius: 50%;
+    border: 3px solid #003580;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+
+
+
+  @keyframes blink {
+    0% {opacity: 1;}
+    50% {opacity: 0.4;}
+    100% {opacity: 1;}
+  }
+  /* ANIMATIONS */
+  .container {
+    animation: slideDown 0.8s ease;
+  }
+  @keyframes slideDown {
+    from {transform: translateY(-40px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+  }
+
+</style>
+</head>
+<body>
+
+
+
+<div class="container">
+
+
+  <h2>Your Profile</h2>
+
+  <!-- Profile Picture -->
+  <img id="profilePic" src="default.jpg" alt="Profile">
+  <input type="file" id="uploadPic">
+
+  <label>Full Name</label>
+  <input type="text" id="fullname">
+
+  <label>Email</label>
+  <input type="email" id="email">
+
+  <label>Phone Number</label>
+  <input type="text" id="phone">
+
+  <label>Gender</label>
+  <select id="gender">
+    <option value="">Select Gender</option>
+    <option>Male</option>
+    <option>Female</option>
+    <option>Other</option>
+  </select>
+
+  <label>Date of Birth</label>
+  <input type="date" id="dob">
+
+  <label>Address</label>
+  <input type="text" id="address">
+
+  <label>Country</label>
+  <input type="text" id="country">
+
+  <!-- Buttons Row -->
+  <div style="display:flex; justify-content:space-between;">
+    <button id="backBtn">Go Back</button>
+    <button id="saveBtn">Save</button>
+  </div>
+
+</div>
+
+<script>
+  const fullname = document.getElementById("fullname");
+  const email = document.getElementById("email");
+  const phone = document.getElementById("phone");
+  const gender = document.getElementById("gender");
+  const dob = document.getElementById("dob");
+  const address = document.getElementById("address");
+  const country = document.getElementById("country");
+  const profilePic = document.getElementById("profilePic");
+  const uploadPic = document.getElementById("uploadPic");
+
+  // LOAD SAVED DATA
+  const data = JSON.parse(localStorage.getItem("profileData"));
+  if(data){
+    fullname.value = data.fullname || "";
+    email.value = data.email || "";
+    phone.value = data.phone || "";
+    gender.value = data.gender || "";
+    dob.value = data.dob || "";
+    address.value = data.address || "";
+    country.value = data.country || "";
+    if(data.profilePic) profilePic.src = data.profilePic;
+  }
+
+  // PREVIEW PIC + SAVE IT
+  uploadPic.addEventListener("change", () => {
+    const file = uploadPic.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      profilePic.src = reader.result;
+    };
+    if(file) reader.readAsDataURL(file);
+  });
+
+  // SAVE PROFILE
+  document.getElementById("saveBtn").addEventListener("click", () => {
+    const updatedData = {
+      fullname: fullname.value,
+      email: email.value,
+      phone: phone.value,
+      gender: gender.value,
+      dob: dob.value,
+      address: address.value,
+      country: country.value,
+      profilePic: profilePic.src
+    };
+    localStorage.setItem("profileData", JSON.stringify(updatedData));
+    alert("Profile Saved!");
+  });
+
+  // GO BACK
+  document.getElementById("backBtn").addEventListener("click", () => {
+    window.location.href = "bookingdesktop.html";
+  });
+</script>
+
+</body>
+</html>

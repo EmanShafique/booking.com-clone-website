@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Setup Profile | Book.pk</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #eef2ff;
+  }
+  .container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  h2 { text-align: center; color: #003580; }
+  input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #ccc; }
+  button { width: 48%; padding: 12px; border: none; border-radius: 8px; margin-top: 10px; cursor: pointer; font-weight: bold; }
+  .btn-save { background-color: #003580; color: white; }
+  .btn-skip { background-color: #ccc; color: black; float: right; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Set Up Your Profile</h2>
+  <input type="text" id="fullname" placeholder="Full Name">
+  <input type="email" id="email" placeholder="Email">
+  <input type="text" id="phone" placeholder="Phone Number">
+  
+  <button class="btn-save">Save</button>
+  <button class="btn-skip">Skip</button>
+</div>
+
+<script>
+  const fullnameInput = document.getElementById("fullname");
+  const emailInput = document.getElementById("email");
+  const phoneInput = document.getElementById("phone");
+
+  // Load previously saved data
+  const profileData = JSON.parse(localStorage.getItem("profileData"));
+  if(profileData){
+      fullnameInput.value = profileData.fullname || "";
+      emailInput.value = profileData.email || "";
+      phoneInput.value = profileData.phone || "";
+  }
+
+  document.querySelector(".btn-save").addEventListener("click", () => {
+      const data = {
+          fullname: fullnameInput.value,
+          email: emailInput.value,
+          phone: phoneInput.value
+      };
+      localStorage.setItem("profileData", JSON.stringify(data));
+      alert("Profile saved!");
+      window.location.href = "bookingdesktop.html"; // Go to main desktop
+  });
+
+  document.querySelector(".btn-skip").addEventListener("click", () => {
+      window.location.href = "bookingdesktop.html"; // Skip goes to desktop
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Flights | Book.pk</title>
+<style>
+:root{
+  --primary:#003580;
+  --accent:#0071c2;
+  --hover:#005999;
+  --bg:#f5f7fa;
+  --card:#ffffff;
+  --text:#262626;
+  --muted:#6b6b6b;
+  --shadow:0 6px 20px rgba(0,0,0,0.1);
+}
+
+html,body{
+  height:100%;
+  margin:0;
+  font-family:Inter, Arial, sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* NAVBAR */
+.navbar{
+  background-color:var(--primary);
+  padding:12px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.navbar-left{
+  font-size:22px;
+  font-weight:bold;
+  color:white;
+}
+
+.navbar-center{
+  display:flex;
+  gap:20px;
+}
+
+.nav-link{
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  padding:8px 12px;
+  border-radius:4px;
+}
+
+.nav-link:hover,
+.nav-link.active{
+  background-color:var(--hover);
+}
+
+.navbar-right button{
+  background:white;
+  color:var(--primary);
+  border:none;
+  padding:8px 14px;
+  font-weight:bold;
+  border-radius:4px;
+  cursor:pointer;
+}
+
+/* HERO */
+.hero{
+  margin:30px auto;
+  width:92%;
+  max-width:1200px;
+  background:var(--card);
+  border-radius:12px;
+  padding:28px;
+  box-shadow:var(--shadow);
+}
+
+.search-title{
+  color:var(--primary);
+  font-size:28px;
+  margin-bottom:15px;
+}
+
+/* SEARCH ROW */
+.search-row{
+  background: white;
+  padding:14px;
+  border-radius:10px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.field{
+  background:white;
+  padding:10px;
+  border-radius:6px;
+  flex:1;
+}
+
+.field label{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:5px;
+  display:block;
+}
+
+.field input,
+.field select{
+  width:100%;
+  border:none;
+  font-size:15px;
+  outline:none;
+}
+
+/* BUTTONS */
+.swap-btn{
+  background:var(--accent);
+  color:white;
+  border:none;
+  width:44px;
+  height:44px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.btn-search{
+  background:var(--accent);
+  color:white;
+  padding:12px 20px;
+  border:none;
+  border-radius:6px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.btn-search:hover{
+  background:var(--hover);
+}
+
+/* QUICK PICKS */
+.quick-picks{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+  flex-wrap:wrap;
+}
+
+.chip{
+  background:#e7f0fa;
+  color:var(--primary);
+  padding:8px 14px;
+  border-radius:20px;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.chip:hover{
+  background:#d0e4f7;
+}
+
+/* RESPONSIVE */
+@media (max-width:980px){
+  .search-row{
+    flex-direction:column;
+  }
+  .search-title{
+    font-size:22px;
+  }
+}
+</style>
+
+</head>
+<body>
+
+
+  <div class="navbar">
+  <div class="navbar-left">Book.pk</div>
+
+  <div class="navbar-center">
+    <a href="flights.html" class="nav-link">Flights</a>
+    <a href="#" class="nav-link">Car Rentals</a>
+    <a href="#" class="nav-link">Attractions</a>
+    <a href="#" class="nav-link">Airport Taxis</a>
+    <a href="bookingdesktop.html" class="nav-link active">desktop</a>
+  </div>
+
+  <div class="navbar-right">
+    <button onclick="window.location.href='desktopprofile.html'">View Profile</button>
+  </div>
+</div>
+
+<section class="hero" aria-label="Flights Search">
+  <div class="search-box">
+    <h1 class="search-title">Search hundreds of flight sites at once.</h1>
+
+    <div class="search-row" role="search">
+      <div class="field">
+        <label for="from">From</label>
+        <select id="from">
+          <option value="isb">Islamabad (ISB)</option>
+          <option value="lhr">Lahore (LHE)</option>
+          <option value="khi">Karachi (KHI)</option>
+          <option value="psh">Peshawar (PEW)</option>
+        </select>
+      </div>
+
+      <div style="display:flex;flex-direction:column;align-items:center">
+        <button title="Swap" class="swap-btn" id="swapBtn">⇄</button>
+      </div>
+
+      <div class="field">
+        <label for="to">To</label>
+        <select id="to">
+          <option value="lhr">Lahore (LHE)</option>
+          <option value="isb">Islamabad (ISB)</option>
+          <option value="khi">Karachi (KHI)</option>
+          <option value="psh">Peshawar (PEW)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="depart">Depart</label>
+        <input type="date" id="depart">
+      </div>
+
+      <div class="field">
+        <label for="return">Return</label>
+        <input type="date" id="return">
+      </div>
+
+      <div class="field">
+        <label for="class">Class</label>
+        <select id="class">
+          <option>Economy</option>
+          <option>Business</option>
+        </select>
+      </div>
+
+      <div class="search-action">
+        <button class="btn-search" id="searchBtn">Search</button>
+      </div>
+    </div>
+
+    <div class="quick-picks" aria-hidden="false">
+      <div class="chip" onclick="quick('isb','lhr')">ISB → LHE</div>
+      <div class="chip" onclick="quick('isb','khi')">ISB → KHI</div>
+      <div class="chip" onclick="quick('khi','lhr')">KHI → LHE</div>
+      <div class="chip" onclick="quick('psh','isb')">PEW → ISB</div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // defaults: set depart and return to tomorrow and +7 days
+  (function setDates(){
+    const d = new Date();
+    const dd = new Date(d.getTime() + 24*60*60*1000);
+    const rr = new Date(d.getTime() + 8*24*60*60*1000);
+    function toISODate(t){ return t.toISOString().slice(0,10); }
+    document.getElementById('depart').value = toISODate(dd);
+    document.getElementById('return').value = toISODate(rr);
+  })();
+
+  // swap
+  document.getElementById('swapBtn').addEventListener('click', ()=>{
+    const from = document.getElementById('from');
+    const to = document.getElementById('to');
+    const tmp = from.value;
+    from.value = to.value;
+    to.value = tmp;
+  });
+
+  // quick pick helper
+  function quick(a,b){
+    document.getElementById('from').value = a;
+    document.getElementById('to').value = b;
+    setTimeout(()=>document.getElementById('searchBtn').click(),150);
+  }
+
+  // Search -> send to results page with query params
+  document.getElementById('searchBtn').addEventListener('click', ()=>{
+    const q = {
+      from: document.getElementById('from').value,
+      to: document.getElementById('to').value,
+      depart: document.getElementById('depart').value,
+      ret: document.getElementById('return').value,
+      cls: document.getElementById('class').value
+    };
+    const params = new URLSearchParams(q).toString();
+    window.location.href = 'flightresults.html?' + params;
+  });
+</script>
+
+</body>
+</html>

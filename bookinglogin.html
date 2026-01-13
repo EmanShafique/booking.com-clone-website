@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login | Booking Clone</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<style>
+/* --- Your original CSS --- */
+body {
+  margin: 0;
+  font-family: Poppins, Arial, sans-serif;
+  background: url('https://images.pexels.com/photos/327821/pexels-photo-327821.jpeg?auto=compress') no-repeat center/cover;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  background: rgba(255,255,255,0.9);
+  width: 380px;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  animation: slideDown 0.8s ease;
+}
+@keyframes slideDown {
+  from {transform: translateY(-40px); opacity: 0;}
+  to {transform: translateY(0); opacity: 1;}
+}
+h2 { text-align: center; color: #003580; margin-bottom: 10px; font-size: 28px; }
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px -10px;
+  border: none;
+  border-radius: 10px;
+  background: #eef2ff;
+  font-size: 16px;
+}
+button {
+  width: 100%;
+  background: #003580;
+  color: white;
+  padding: 12px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover { background: #0057c2; }
+.link-text { text-align: center; margin-top: 20px; font-size: 14px; }
+.link-text a { color: #003580; text-decoration: none; font-weight: bold; }
+.link-text a:hover { text-decoration: underline; }
+.error { color: red; font-size: 13px; margin-top: -8px; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Login</h2>
+
+  <form id="loginForm" method="POST">
+    <input type="email" name="email" placeholder="Email Address" required>
+    <p id="emailError" class="error"></p>
+
+    <input type="password" name="password" placeholder="Password" required>
+    <p id="passError" class="error"></p>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <div class="link-text">
+    Don't have an account? <a href="bookingregister.php">Register</a>
+  </div>
+</div>
+
+<div id="successDialog" title="Success" style="display:none;">
+  <p>Thank you! You have entered the correct information.</p>
+</div>
+
+<script>
+$(document).ready(function () {
+
+    $("#loginForm").submit(function (e) {
+        e.preventDefault();
+
+        let email = $("input[name='email']").val().trim();
+        let password = $("input[name='password']").val();
+
+        let valid = true;
+        $(".error").hide();
+
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            $("#emailError").fadeIn().text("Enter a valid email address.");
+            valid = false;
+        }
+
+        if (password.length < 8) {
+            $("#passError").fadeIn().text("Password must be at least 8 characters.");
+            valid = false;
+        }
+
+        if (!valid) return;
+
+        let storedUser = localStorage.getItem("registeredUser");
+
+        if (!storedUser) {
+            $("#emailError").fadeIn().text("No account found. Please register first.");
+            return;
+        }
+
+        let user = JSON.parse(storedUser);
+
+        if (email === user.email && password === user.password) {
+
+            localStorage.setItem("isLoggedIn", "true");
+            window.location.href = "bookingdesktop.html";
+
+        } else {
+            $("#passError").fadeIn().text("Invalid email or password.");
+        }
+    });
+
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register | Booking Clone</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Poppins, Arial, sans-serif;
+      background: url('https://images.pexels.com/photos/327821/pexels-photo-327821.jpeg?auto=compress') no-repeat center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .register-box {
+      background: rgba(255,255,255,0.9);
+      width: 380px;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      animation: slideDown 0.8s ease;
+    }
+
+    @keyframes slideDown {
+      from {transform: translateY(-40px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+
+    h2 {
+      text-align: center;
+      color: #003580;
+      margin-bottom: 20px;
+      font-size: 26px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px -10px;
+      border: none;
+      border-radius: 10px;
+      background: #eef2ff;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      background: #003580;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #0058a3;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .login-link a {
+      color: #0071c2;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: -8px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="register-box">
+  <h2>Create Your Account</h2>
+
+  <form id="registerForm" method="POST">
+    <input type="text" name="fullname" placeholder="Full Name" required>
+    <p id="nameError" class="error"></p>
+
+    <input type="email" name="email" placeholder="Email Address" required>
+    <p id="emailError" class="error"></p>
+
+    <input type="password" name="password" placeholder="Password" required>
+    <p id="passError" class="error"></p>
+
+    <input type="password" name="confirm" placeholder="Confirm Password" required>
+    <p id="confirmError" class="error"></p>
+
+    <button type="submit">Create Account</button>
+  </form>
+
+  <div class="login-link">
+    Already have an account? <a href="bookinglogin.html">Log in</a>
+  </div>
+</div>
+
+
+<script>
+$(document).ready(function () {
+
+    $("#registerForm").submit(function (e) {
+        e.preventDefault();
+
+        let fullname = $("input[name='fullname']").val().trim();
+        let email = $("input[name='email']").val().trim();
+        let password = $("input[name='password']").val();
+        let confirm = $("input[name='confirm']").val();
+
+        let valid = true;
+        $(".error").hide();
+
+        let namePattern = /^[A-Za-z\s]{3,}$/;
+        if (!namePattern.test(fullname)) {
+            $("#nameError").fadeIn().text("Full name must be at least 3 letters (only alphabets allowed).");
+            valid = false;
+        }
+
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            $("#emailError").fadeIn().text("Enter a valid email address.");
+            valid = false;
+        }
+
+        let passPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!passPattern.test(password)) {
+            $("#passError").fadeIn().text("Password must be 8+ chars with uppercase, lowercase, number & special character.");
+            valid = false;
+        }
+
+        if (password !== confirm) {
+            $("#confirmError").fadeIn().text("Passwords do not match!");
+            valid = false;
+        }
+
+        if (!valid) return;
+
+        // ✅ ASYNC STORAGE (localStorage)
+        let userData = {
+            fullname: fullname,
+            email: email,
+            password: password
+        };
+
+        localStorage.setItem("registeredUser", JSON.stringify(userData));
+        window.location.href = "bookingdesktop.html";
+    });
+
+});
+</script>
+
+</body>
+</html>

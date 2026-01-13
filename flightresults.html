@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Search Results | Book.pk</title>
+<style>
+  :root{
+    --deep-blue:#ffffff;        
+    --accent:#14a0ff;
+    --card-bg:#ffffff;
+    --text:#0b2545;               
+    --muted:#5f6f86;
+    --border:#d9e2ef;
+    --panel:#f4f7fb;
+    --shadow:0 8px 22px rgba(0,0,0,0.08);
+  }
+
+  body{
+    margin:0;
+    background:#f2f5f9;
+    color:var(--text);
+    font-family:Inter,Arial,Helvetica,sans-serif;
+  }
+
+  .header{
+    background:#003580;
+    padding:14px 24px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    border-bottom:1px solid var(--border);
+    box-shadow:var(--shadow);
+  }
+
+  .brand{
+    font-weight:700;
+    font-size:20px;
+    color:white;
+  }
+
+  .results-wrap{
+    max-width:1200px;
+    margin:22px auto;
+    padding:0 18px;
+    display:flex;
+    gap:20px;
+  }
+
+  /* FILTERS */
+  .filters{
+    width:280px;
+    background:#ffffff;
+    border-radius:12px;
+    padding:16px;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    height:fit-content;
+  }
+
+  .filters h3{
+    margin:0 0 12px 0;
+    color:var(--text);
+  }
+
+  .filter-group{
+    margin-bottom:12px;
+  }
+
+  .filter-group label{
+    display:block;
+    margin-bottom:6px;
+    font-size:13px;
+    color:var(--muted);
+  }
+
+  .filter-group select,
+  .filter-group input{
+    width:100%;
+    padding:9px;
+    border-radius:6px;
+    background:#ffffff;
+    color:var(--text);
+    outline:none;
+    border:1px solid var(--border);
+  }
+
+  /* MAIN */
+  .main{
+    flex:1;
+  }
+
+  .route-header{
+    background:#ffffff;
+    padding:14px;
+    border-radius:12px;
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+  }
+
+  .tabs{
+    display:flex;
+    gap:12px;
+  }
+
+  .tab{
+    background:#f4f7fb;
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+    border:1px solid var(--border);
+    color:var(--text);
+    font-weight:500;
+  }
+
+  .tab.active{
+    background:var(--accent);
+    color:white;
+    font-weight:700;
+  }
+
+  /* CARDS */
+  .cards{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .card{
+    background:#ffffff;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow);
+    display:flex;
+    gap:14px;
+    align-items:center;
+  }
+
+  .airline{
+    width:86px;
+    text-align:center;
+  }
+
+  .airline img{
+    width:64px;
+    height:40px;
+    object-fit:contain;
+  }
+
+  .flight-info{
+    flex:1;
+  }
+
+  .flight-info .times{
+    font-size:18px;
+    font-weight:700;
+    color:var(--text);
+  }
+
+  .meta{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:6px;
+  }
+
+  .price{
+    min-width:140px;
+    text-align:right;
+    font-weight:800;
+    font-size:20px;
+    color:#f4a100;
+  }
+
+  /* PILL */
+  .pill{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:8px;
+    font-size:12px;
+    margin-left:8px;
+    background:#eef3f9;
+    color:var(--text);
+    border:1px solid var(--border);
+  }
+
+  /* BUTTON */
+  .actions{
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+
+  .btn{
+    background:var(--accent);
+    color:white;
+    padding:8px 14px;
+    border-radius:8px;
+    border:none;
+    cursor:pointer;
+    font-weight:700;
+  }
+
+  .btn:hover{
+    opacity:0.9;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width:980px){
+    .results-wrap{
+      flex-direction:column;
+      padding:12px;
+    }
+    .filters{
+      width:100%;
+    }
+  }
+</style>
+
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">Book.pk</div>
+  <div style="flex:1"></div>
+  <div class="actions">
+    <button class="btn" id="goBack">Modify Search</button>
+  </div>
+</header>
+
+<main class="results-wrap">
+  <aside class="filters" aria-label="Filters">
+    <h3>Smart Filters</h3>
+    <div class="filter-group">
+      <label>Stops</label>
+      <select id="filterStops">
+        <option value="any">Any</option>
+        <option value="nonstop">Non-stop</option>
+        <option value="1">1 stop</option>
+        <option value="2">2+ stops</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Airline</label>
+      <select id="filterAirline">
+        <option value="any">Any</option>
+        <option value="PIA">PIA</option>
+        <option value="Serene">SereneAir</option>
+        <option value="AirBlue">AirBlue</option>
+        <option value="FlyDubai">FlyDubai</option>
+        <option value="Emirates">Emirates</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Max Price (Rs)</label>
+      <input id="filterPrice" type="number" placeholder="e.g. 1000000">
+    </div>
+    <div style="margin-top:8px">
+      <button class="btn" id="applyFilters">Apply</button>
+    </div>
+  </aside>
+
+  <section class="main" aria-label="Search Results">
+    <div class="route-header">
+      <div>
+        <div id="routeText" style="font-weight:700;font-size:18px"></div>
+        <div id="dateText" style="color:#bfe0ff;font-size:13px;margin-top:6px"></div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="tabs" role="tablist">
+          <div class="tab active" data-sort="best">Best</div>
+          <div class="tab" data-sort="cheapest">Cheapest</div>
+          <div class="tab" data-sort="quickest">Quickest</div>
+        </div>
+        <div style="width:10px"></div>
+      </div>
+    </div>
+
+    <div class="cards" id="cards"></div>
+  </section>
+</main>
+
+<script>
+/* Read query params */
+const params = new URLSearchParams(location.search);
+const FROM = params.get('from') || 'isb';
+const TO = params.get('to') || 'lhr';
+const DEPART = params.get('depart') || '';
+const RET = params.get('ret') || '';
+const CLASS = params.get('cls') || 'Economy';
+
+/* map codes to friendly names */
+const places = {
+  isb: 'Islamabad (ISB)',
+  lhr: 'Lahore (LHE)',
+  khi: 'Karachi (KHI)',
+  psh: 'Peshawar (PEW)'
+};
+
+/* sample flight data */
+const SAMPLE_FLIGHTS = [
+  // from isb to lhr
+  {id:1, from:'isb', to:'lhr', airline:'PIA', stops:0, dur:'2h 10m', depart:'08:00', arrive:'10:10', price:45000, rating:4.1},
+  {id:2, from:'isb', to:'lhr', airline:'Serene', stops:0, dur:'2h 5m', depart:'13:20', arrive:'15:25', price:42000, rating:4.3},
+  {id:3, from:'isb', to:'lhr', airline:'AirBlue', stops:1, dur:'4h 30m', depart:'06:50', arrive:'11:20', price:38000, rating:3.9},
+  {id:4, from:'isb', to:'lhr', airline:'FlyDubai', stops:1, dur:'5h 10m', depart:'23:00', arrive:'04:10', price:36000, rating:4.0},
+  {id:5, from:'lhr', to:'isb', airline:'Emirates', stops:2, dur:'10h 50m', depart:'02:10', arrive:'13:00', price:98000, rating:4.7},
+
+  // isb -> khi
+  {id:6, from:'isb', to:'khi', airline:'PIA', stops:0, dur:'1h 25m', depart:'09:30', arrive:'10:55', price:28000, rating:4.0},
+  {id:7, from:'isb', to:'khi', airline:'AirBlue', stops:0, dur:'1h 20m', depart:'18:00', arrive:'19:20', price:26000, rating:3.8},
+
+  // khi -> lhr
+  {id:8, from:'khi', to:'lhr', airline:'Serene', stops:0, dur:'1h 40m', depart:'07:15', arrive:'08:55', price:33000, rating:4.2},
+
+  // psh -> isb
+  {id:9, from:'psh', to:'isb', airline:'PIA', stops:0, dur:'0h 50m', depart:'11:00', arrive:'11:50', price:15000, rating:3.9}
+];
+
+/* filter by selected route */
+let flights = SAMPLE_FLIGHTS.filter(f => f.from === FROM && f.to === TO);
+
+/* if none, show some alternatives (same-from or same-to) */
+if(flights.length === 0){
+  flights = SAMPLE_FLIGHTS.filter(f => f.from === FROM || f.to === TO).slice(0,6);
+}
+
+/* UI references */
+const cards = document.getElementById('cards');
+document.getElementById('routeText').textContent = `${places[FROM] || FROM} → ${places[TO] || TO}`;
+document.getElementById('dateText').textContent = `Depart: ${DEPART || 'Any'} • Return: ${RET || 'Any'} • Class: ${CLASS}`;
+
+/* render helper */
+function render(list){
+  cards.innerHTML = '';
+  if(list.length === 0){
+    cards.innerHTML = '<div style="padding:18px;border-radius:10px;background:rgba(255,255,255,0.02)">No flights found for selected route.</div>';
+    return;
+  }
+  list.forEach(f=>{
+    const el = document.createElement('div');
+    el.className = 'card';
+    el.innerHTML = `
+      <div class="airline">
+        <img src="${airlineLogo(f.airline)}" alt="${f.airline}">
+        <div style="margin-top:8px;color:#cfe6ff;font-weight:700">${f.airline}</div>
+      </div>
+      <div class="flight-info">
+        <div class="times">${f.depart} — ${f.arrive} <span class="pill">${f.dur}</span></div>
+        <div class="meta">${places[f.from] || f.from} → ${places[f.to] || f.to} • ${f.stops===0? 'Non-stop': (f.stops===1? '1 stop':'2+ stops')} • Rating ${f.rating}</div>
+      </div>
+      <div class="price">
+        Rs ${numberWithCommas(f.price)}
+        <div style="font-size:12px;color:#a6c7ff;margin-top:6px">Business Basic</div>
+        <div style="margin-top:8px"><button class="btn book" data-id="${f.id}">Book</button></div>
+      </div>
+    `;
+    cards.appendChild(el);
+  });
+
+  // attach book handlers
+  document.querySelectorAll('.book').forEach(b=>{
+    b.addEventListener('click', (e)=>{
+      const id = e.target.dataset.id;
+      alert('Booking demo — flight id: ' + id + '\\n(implement booking flow)');
+    });
+  });
+}
+
+/* utility functions */
+function numberWithCommas(x){ return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+function airlineLogo(name){
+  // use small text-data images (data URLs) or simple emoji placeholders; using plain inline SVG data URI for clarity
+  const logos = {
+    'PIA': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPqBdaI0qawiifcnFe46ZHtJ-elTizYUPFvw&s',
+    'Serene': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ424I4R2gP-S6S7MWPnrjJx5_qBkYeXvAGg&s',
+    'AirBlue': 'https://d1yjjnpx0p53s8.cloudfront.net/styles/logo-thumbnail/s3/022016/air_blue_logo.jpg?itok=UgR3Gxbn',
+    'FlyDubai': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVZIrr-fNRsW5c2r_CH5qumMkLqP1-VEe3Pw&s',
+    'Emirates': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2dtFYvZivlqjCZ5xduzhlUlJWDZdwdz5fjg&s'
+  };
+  return logos[name] || logos['PIA'];
+}
+
+/* initial render sorted by "best" (we'll compute score) */
+function scoreFlight(f){
+  // lower price and shorter duration -> better. A simple heuristic:
+  const priceScore = 1 / f.price;
+  const stopsScore = 1 / (1 + f.stops);
+  const ratingScore = f.rating || 4.0;
+  return (priceScore * 0.55) + (stopsScore * 0.25) + (ratingScore * 0.20);
+}
+
+function sortBy(mode, list){
+  const copy = list.slice();
+  if(mode === 'cheapest') return copy.sort((a,b)=>a.price - b.price);
+  if(mode === 'quickest') {
+    // convert durations to minutes and sort
+    const toMin = s => {
+      const parts = s.split(' ');
+      let mins = 0;
+      parts.forEach(p=>{
+        if(p.endsWith('h')) mins += parseInt(p)*60;
+        if(p.endsWith('m')) mins += parseInt(p);
+      });
+      return mins;
+    };
+    return copy.sort((a,b)=>toMin(a.dur) - toMin(b.dur));
+  }
+  // best
+  return copy.sort((a,b)=>scoreFlight(b) - scoreFlight(a));
+}
+
+/* attach tab handlers */
+document.querySelectorAll('.tab').forEach(t=>{
+  t.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    const mode = t.dataset.sort;
+    render(sortBy(mode, flights));
+  });
+});
+
+/* filter application */
+document.getElementById('applyFilters').addEventListener('click', ()=>{
+  applyFilters();
+});
+
+function applyFilters(){
+  const stops = document.getElementById('filterStops').value;
+  const airline = document.getElementById('filterAirline').value;
+  const price = parseInt(document.getElementById('filterPrice').value) || Infinity;
+
+  let list = SAMPLE_FLIGHTS.filter(f => (f.from === FROM && f.to === TO) || (f.from === FROM) || (f.to === TO));
+  if(stops === 'nonstop') list = list.filter(f=>f.stops === 0);
+  if(stops === '1') list = list.filter(f=>f.stops === 1);
+  if(stops === '2') list = list.filter(f=>f.stops >= 2);
+  if(airline !== 'any') list = list.filter(f=>f.airline === airline);
+  list = list.filter(f=>f.price <= price);
+  flights = list;
+  // keep current tab
+  const active = document.querySelector('.tab.active').dataset.sort;
+  render(sortBy(active, flights));
+}
+
+/* go back (modify search) */
+document.getElementById('goBack').addEventListener('click', ()=>{
+  // open flights.html and prefill using query params
+  const q = new URLSearchParams({from:FROM,to:TO,depart:DEPART,ret:RET,cls:CLASS}).toString();
+  window.location.href = 'flights.html?' + q;
+});
+
+/* initial render */
+render(sortBy('best', flights));
+</script>
+
+</body>
+</html>

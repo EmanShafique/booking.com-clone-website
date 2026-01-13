@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book.pk</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+    }
+
+    .navbar {
+      background-color: #003580;
+      padding: 10px 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar-left {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .navbar-right button {
+      background-color: white;
+      color: #003580;
+      border: none;
+      padding: 8px 15px;
+      margin-left: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+
+    .hero {
+      background-color: #003580;
+      color: white;
+      padding: 40px 20px;
+      
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .hero p {
+      font-size: 18px;
+      text-align: left;
+    }
+
+    .search-box {
+      display: flex;
+      justify-content: center;
+      margin-top: -25px;
+    }
+    .search-form {
+      display: flex;
+      background-color: white;
+      border: 3px solid #febb02;
+      border-radius: 5px;
+      overflow: hidden;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .search-form input {
+      padding: 15px;
+      border: solid 2px #febb02;
+      
+      font-size: 14px;
+    }
+
+    .search-form button {
+      background-color: #0071c2;
+      color: white;
+      padding: 15px 25px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .section {
+      padding: 40px 20px;
+      max-width: 1100px;
+      margin: auto;
+
+    }
+
+    .section h2 {
+      margin-bottom: 15px;
+    }
+
+    .cards {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: #fafafa;
+      overflow: hidden;
+      flex: 1 1 200px;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .card p {
+      padding: 10px;
+    }
+
+    .offers {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .offer-card {
+      flex: 1 1 400px;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      color: white;
+    }
+
+    .offer-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .offer-content {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+    }
+
+    .offer-content h3 {
+      margin: 5px 0;
+    }
+
+    .offer-btn {
+      background-color: #0071c2;
+      color: white;
+      padding: 8px 15px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      margin-top: 5px;
+    }
+        .register-form {
+      background: #f5f5f5;
+      padding: 30px;
+      border-radius: 8px;
+    }
+
+    .register-form input, .register-form button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .register-form button {
+      background-color: #003580;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+    }
+
+        .footer {
+      background-color: #003580;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .footer .social-links {
+      margin-top: 10px;
+    }
+
+    .footer .social-links a {
+      color: #febb02;
+      text-decoration: none;
+      margin: 0 8px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .footer .social-links a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+    button:hover{
+      color: #febb02;
+    }
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #222;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #373232;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .navbar {
+  background-color: #003580;
+  padding: 10px 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-center {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  background-color: #002a66;
+}
+
+.nav-link.active {
+  background-color: #002a66;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+  <div class="navbar-left">Book.pk</div>
+
+  <div class="navbar-center">
+    <a href="flights.html" class="nav-link">Flights</a>
+    <a href="carrentalpage.html" class="nav-link">Car Rentals</a>
+    <a href="attractions.html" class="nav-link">Attractions</a>
+    <a href="airporttaxis.html" class="nav-link">Airport Taxis</a>
+    <a href="bookingdesktop.html" class="nav-link active">desktop</a>
+  </div>
+
+  <div class="navbar-right">
+    <button onclick="window.location.href='desktopprofile.html'">View Profile</button>
+  </div>
+</div>
+
+
+  <div class="hero">
+    <h1>Find your next stay</h1>
+    <p>Search low prices on hotels, homes and much more...</p>
+  </div>
+
+  <div class="search-box">
+    <form class="search-form">
+      <input type="text" placeholder="Where are you going?">
+      <input type="text" placeholder="Check-in date">
+      <input type="text" placeholder="Check-out date">
+      <input type="text" placeholder="2 adults · 0 children · 1 room">
+      <button type="submit">🔍︎</button>
+    </form>
+  </div>
+
+
+  <!-- Trending destinations -->
+  <div class="section">
+    <h2>Trending destinations</h2>
+    <div class="cards">
+
+      <div class="card">
+        <img class="destination-img" data-name="islamabad"
+             src="https://static.wixstatic.com/media/ee0244_67283cc5f859472690e80db40ad99ab9~mv2.jpg" alt="Islamabad">
+        <p>Islamabad</p>
+      </div>
+
+      <div class="card">
+        <img class="destination-img" data-name="dubai"
+             src="https://www.shutterstock.com/image-photo/high-rise-building-dubai-downtown-600nw-2244374525.jpg" alt="Dubai">
+        <p>Dubai</p>
+      </div>
+
+      <div class="card">
+        <img class="destination-img" data-name="switzerland"
+             src="https://img.freepik.com/free-photo/beautiful-shot-small-village-surrounded-by-lake-snowy-hills_181624-37802.jpg" alt="Switzerland">
+        <p>Switzerland</p>
+      </div>
+
+      <div class="card">
+        <img class="destination-img" data-name="london"
+             src="https://img.freepik.com/free-photo/big-ben-westminster-bridge-sunset-london-uk_268835-1395.jpg" alt="London">
+        <p>London</p>
+      </div>
+
+      <div class="card">
+        <img class="destination-img" data-name="tokyo"
+             src="https://www.aviontourism.com/images/1260-2600-fix/64461e2c-d9a9-4823-91ba-c41e9c8cdc82" alt="Tokyo">
+        <p>Tokyo</p>
+      </div>
+
+    </div>
+    <div class="section">
+    <h2>Offers</h2>
+    <p>Promotions, deals and special offers for you</p>
+    <div class="offers">
+      <div class="offer-card">
+        <img src="https://static.wixstatic.com/media/nsplsh_9fcdaa16f5ca45718a89233627d6962b~mv2.jpg/v1/fill/w_980,h_551,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/nsplsh_9fcdaa16f5ca45718a89233627d6962b~mv2.jpg" alt="Late Escape Deals">
+        <div class="offer-content">
+          <h3>Late Escape Deals</h3>
+          <h3>Go for a good time, not a long time</h3>
+          <p>Squeeze out the last bit of sun with at least 15% off</p>
+          <a href="#" class="offer-btn">Find deals</a>
+        </div>
+      </div>
+      <div class="offer-card">
+        <img src="https://www.luxurytravelmagazine.com/images/article/2020Mar/polar_northern_lights.jpg" alt="Holiday rentals">
+        <div class="offer-content">
+          <h3>Holiday rentals</h3>
+          <h3>Live the dream in a holiday home</h3>
+          <p>Choose from houses, villas, chalets and more</p>
+          <a href="#" class="offer-btn">Book yours</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Browse by property type</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="https://cdn.britannica.com/96/115096-050-5AFDAF5D/Bellagio-Hotel-Casino-Las-Vegas.jpg" alt="Hotels">
+        <p>Hotels</p>
+      </div>
+      <div class="card">
+        <img src="https://images.ctfassets.net/pg6xj64qk0kh/2Ovng3YfZqgsaFVC8bsiDk/dded61160de036695c2452623fa0f47e/camden-west-nashville-apartments-nashville-tn-twilight-resort-pool-with-sundeck.jpg?w=1098" alt="Apartments">
+        <p>Apartments</p>
+      </div>
+      <div class="card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ97a7EKZ9vyo9UPVXA_bEA8fje-WBzFGjxvv4chBz0vc5YkP8WH8EvuPVmquA8qvElNxY&usqp=CAU" alt="Resorts">
+        <p>Resorts</p>
+      </div>
+      <div class="card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-YDtJu4U780H9RIk5FClgOXaHMHzPQNonDQ&s" alt="Villas">
+        <p>Villas</p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Footer -->
+    <div class="footer">
+    <p>&copy; 2025 Booking.com | All rights reserved</p>
+    <div class="social-links">
+      <a href="mailto:info@bookingclone.com">Email</a> |
+      <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a> |
+      <a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a> |
+      <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a> |
+      <a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a> |
+      <a href="https://www.bookingclone.com" target="_blank" rel="noopener">Website</a>
+    </div>
+  </div>
+
+
+
+  <script>
+    const cityImages = {
+      islamabad: [
+        "https://static.wixstatic.com/media/ee0244_67283cc5f859472690e80db40ad99ab9~mv2.jpg",
+        "https://media.istockphoto.com/id/535695503/photo/pakistan-monument-islamabad.jpg?s=612x612&w=0&k=20&c=bNqjdf8L-5igcRB89DdMgx0kNOmyeo1J_zzXmoxxl8w=",
+        "https://i.pinimg.com/1200x/a6/3f/fa/a63ffa86de799c9809b1765e2884e447.jpg"
+      ],
+      dubai: [
+        "https://www.shutterstock.com/image-photo/high-rise-building-dubai-downtown-600nw-2244374525.jpg",
+        "https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Burj_Khalifa_2021.jpg/1200px-Burj_Khalifa_2021.jpg",
+        "https://t4.ftcdn.net/jpg/00/47/08/81/360_F_47088158_JMBCy1SZX34vtcrj2Y1H07cKCG5eMV3V.jpg"
+      ],
+      switzerland: [
+        "https://img.freepik.com/free-photo/beautiful-shot-small-village-surrounded-by-lake-snowy-hills_181624-37802.jpg",
+        "https://c4.wallpaperflare.com/wallpaper/1006/87/624/zermatt-valley-switzerland-wallpaper-preview.jpg",
+        "https://wallpapercave.com/wp/wp2777161.jpg"
+      ],
+      london: [
+        "https://img.freepik.com/free-photo/big-ben-westminster-bridge-sunset-london-uk_268835-1395.jpg",
+        "https://thumbs.dreamstime.com/b/tower-bridge-london-uk-162690798.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8l7EZZf0fvayRoivJg_VGXjjdavjfLZoE3g&s"
+      ],
+      tokyo: [
+        "https://www.aviontourism.com/images/1260-2600-fix/64461e2c-d9a9-4823-91ba-c41e9c8cdc82",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlOMC5htIFCRn0Z6veu7kv_b4HsnHpxvNUGA&s",
+        "https://i.pinimg.com/736x/09/c9/78/09c978e04105cd1b6e4e679e3d346ed3.jpg"
+      ]
+    };
+
+    
+    const destinationImgs = document.querySelectorAll(".destination-img");
+
+    destinationImgs.forEach(img => {
+      const city = img.dataset.name;
+      let index = 0;
+      let interval = null;
+
+      img.addEventListener("mouseenter", () => {
+        interval = setInterval(() => {
+          index = (index + 1) % cityImages[city].length;
+          img.src = cityImages[city][index];
+        }, 1000);
+      });
+
+      img.addEventListener("mouseleave", () => {
+        clearInterval(interval);
+        index = 0;
+        img.src = cityImages[city][0]; 
+      });
+    });
+
+  </script>
+
+</body>
+</html>
