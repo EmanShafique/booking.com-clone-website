@@ -151,14 +151,11 @@ $(document).ready(function () {
         }
 
         if (!valid) return;
-
-        // ✅ ASYNC STORAGE (localStorage)
         let userData = {
             fullname: fullname,
             email: email,
             password: password
         };
-
         localStorage.setItem("registeredUser", JSON.stringify(userData));
         window.location.href = "bookingdesktop.html";
     });

@@ -13,8 +13,6 @@
     display: flex;
     justify-content: center;
   }
-
-  /* CONTAINER */
   .container {
     width: 420px;
     background: white;
@@ -64,7 +62,6 @@
     opacity: 0.9;
   }
 
-  /* Profile pic */
   #profilePic {
     width: 135px;
     height: 135px;
@@ -74,14 +71,12 @@
     margin-bottom: 10px;
   }
 
-
-
   @keyframes blink {
     0% {opacity: 1;}
     50% {opacity: 0.4;}
     100% {opacity: 1;}
   }
-  /* ANIMATIONS */
+
   .container {
     animation: slideDown 0.8s ease;
   }
@@ -89,19 +84,13 @@
     from {transform: translateY(-40px); opacity: 0;}
     to {transform: translateY(0); opacity: 1;}
   }
-
 </style>
 </head>
 <body>
 
-
-
 <div class="container">
-
-
   <h2>Your Profile</h2>
 
-  <!-- Profile Picture -->
   <img id="profilePic" src="default.jpg" alt="Profile">
   <input type="file" id="uploadPic">
 
@@ -131,7 +120,6 @@
   <label>Country</label>
   <input type="text" id="country">
 
-  <!-- Buttons Row -->
   <div style="display:flex; justify-content:space-between;">
     <button id="backBtn">Go Back</button>
     <button id="saveBtn">Save</button>
@@ -150,7 +138,6 @@
   const profilePic = document.getElementById("profilePic");
   const uploadPic = document.getElementById("uploadPic");
 
-  // LOAD SAVED DATA
   const data = JSON.parse(localStorage.getItem("profileData"));
   if(data){
     fullname.value = data.fullname || "";
@@ -163,7 +150,6 @@
     if(data.profilePic) profilePic.src = data.profilePic;
   }
 
-  // PREVIEW PIC + SAVE IT
   uploadPic.addEventListener("change", () => {
     const file = uploadPic.files[0];
     const reader = new FileReader();
@@ -173,7 +159,6 @@
     if(file) reader.readAsDataURL(file);
   });
 
-  // SAVE PROFILE
   document.getElementById("saveBtn").addEventListener("click", () => {
     const updatedData = {
       fullname: fullname.value,
@@ -188,8 +173,6 @@
     localStorage.setItem("profileData", JSON.stringify(updatedData));
     alert("Profile Saved!");
   });
-
-  // GO BACK
   document.getElementById("backBtn").addEventListener("click", () => {
     window.location.href = "bookingdesktop.html";
   });

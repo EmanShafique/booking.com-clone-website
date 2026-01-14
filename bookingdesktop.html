@@ -3,37 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Book.pk</title>
+  <link rel="stylesheet" href="booking.css">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
       background-color: #ffffff;
     }
 
-    .navbar {
-      background-color: #003580;
-      padding: 10px 20px;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .navbar-left {
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .navbar-right button {
-      background-color: white;
-      color: #003580;
-      border: none;
-      padding: 8px 15px;
-      margin-left: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      border-radius: 4px;
-    }
+    
 
     .hero {
       background-color: #003580;
@@ -160,51 +138,8 @@
       display: inline-block;
       margin-top: 5px;
     }
-        .register-form {
-      background: #f5f5f5;
-      padding: 30px;
-      border-radius: 8px;
-    }
 
-    .register-form input, .register-form button {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .register-form button {
-      background-color: #003580;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      border: none;
-    }
-
-        .footer {
-      background-color: #003580;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
-    }
-    .footer .social-links {
-      margin-top: 10px;
-    }
-
-    .footer .social-links a {
-      color: #febb02;
-      text-decoration: none;
-      margin: 0 8px;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    .footer .social-links a:hover {
-      color: #ffffff;
-      text-decoration: underline;
-    }
+    
     button:hover{
       color: #febb02;
     }
@@ -221,36 +156,6 @@
       cursor: pointer;
       transition: 0.2s;
     }
-    .navbar {
-  background-color: #003580;
-  padding: 10px 20px;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.navbar-center {
-  display: flex;
-  gap: 20px;
-}
-
-.nav-link {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 4px;
-  transition: 0.3s;
-}
-
-.nav-link:hover {
-  background-color: #002a66;
-}
-
-.nav-link.active {
-  background-color: #002a66;
-}
 
   </style>
 </head>
@@ -289,7 +194,6 @@
   </div>
 
 
-  <!-- Trending destinations -->
   <div class="section">
     <h2>Trending destinations</h2>
     <div class="cards">
@@ -373,7 +277,6 @@
   </div>
   </div>
 
-  <!-- Footer -->
     <div class="footer">
     <p>&copy; 2025 Booking.com | All rights reserved</p>
     <div class="social-links">
@@ -385,8 +288,6 @@
       <a href="https://www.bookingclone.com" target="_blank" rel="noopener">Website</a>
     </div>
   </div>
-
-
 
   <script>
     const cityImages = {

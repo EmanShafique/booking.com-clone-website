@@ -85,7 +85,6 @@
     border:1px solid var(--border);
   }
 
-  /* MAIN */
   .main{
     flex:1;
   }
@@ -118,12 +117,10 @@
   }
 
   .tab.active{
-    background:var(--accent);
+    background:#0b2545;
     color:white;
     font-weight:700;
   }
-
-  /* CARDS */
   .cards{
     display:flex;
     flex-direction:column;
@@ -173,10 +170,9 @@
     text-align:right;
     font-weight:800;
     font-size:20px;
-    color:#f4a100;
+    color:#0b2545;
   }
 
-  /* PILL */
   .pill{
     display:inline-block;
     padding:6px 10px;
@@ -188,7 +184,6 @@
     border:1px solid var(--border);
   }
 
-  /* BUTTON */
   .actions{
     display:flex;
     gap:10px;
@@ -196,8 +191,8 @@
   }
 
   .btn{
-    background:var(--accent);
-    color:white;
+    background:white;
+    color:#0b2545;
     padding:8px 14px;
     border-radius:8px;
     border:none;
@@ -209,7 +204,6 @@
     opacity:0.9;
   }
 
-  /* RESPONSIVE */
   @media (max-width:980px){
     .results-wrap{
       flex-direction:column;
@@ -286,7 +280,6 @@
 </main>
 
 <script>
-/* Read query params */
 const params = new URLSearchParams(location.search);
 const FROM = params.get('from') || 'isb';
 const TO = params.get('to') || 'lhr';
@@ -294,7 +287,6 @@ const DEPART = params.get('depart') || '';
 const RET = params.get('ret') || '';
 const CLASS = params.get('cls') || 'Economy';
 
-/* map codes to friendly names */
 const places = {
   isb: 'Islamabad (ISB)',
   lhr: 'Lahore (LHE)',
@@ -302,7 +294,6 @@ const places = {
   psh: 'Peshawar (PEW)'
 };
 
-/* sample flight data */
 const SAMPLE_FLIGHTS = [
   // from isb to lhr
   {id:1, from:'isb', to:'lhr', airline:'PIA', stops:0, dur:'2h 10m', depart:'08:00', arrive:'10:10', price:45000, rating:4.1},
@@ -322,20 +313,16 @@ const SAMPLE_FLIGHTS = [
   {id:9, from:'psh', to:'isb', airline:'PIA', stops:0, dur:'0h 50m', depart:'11:00', arrive:'11:50', price:15000, rating:3.9}
 ];
 
-/* filter by selected route */
 let flights = SAMPLE_FLIGHTS.filter(f => f.from === FROM && f.to === TO);
 
-/* if none, show some alternatives (same-from or same-to) */
 if(flights.length === 0){
   flights = SAMPLE_FLIGHTS.filter(f => f.from === FROM || f.to === TO).slice(0,6);
 }
 
-/* UI references */
 const cards = document.getElementById('cards');
 document.getElementById('routeText').textContent = `${places[FROM] || FROM} → ${places[TO] || TO}`;
 document.getElementById('dateText').textContent = `Depart: ${DEPART || 'Any'} • Return: ${RET || 'Any'} • Class: ${CLASS}`;
 
-/* render helper */
 function render(list){
   cards.innerHTML = '';
   if(list.length === 0){
@@ -363,7 +350,6 @@ function render(list){
     cards.appendChild(el);
   });
 
-  // attach book handlers
   document.querySelectorAll('.book').forEach(b=>{
     b.addEventListener('click', (e)=>{
       const id = e.target.dataset.id;
@@ -372,10 +358,8 @@ function render(list){
   });
 }
 
-/* utility functions */
 function numberWithCommas(x){ return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
 function airlineLogo(name){
-  // use small text-data images (data URLs) or simple emoji placeholders; using plain inline SVG data URI for clarity
   const logos = {
     'PIA': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPqBdaI0qawiifcnFe46ZHtJ-elTizYUPFvw&s',
     'Serene': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ424I4R2gP-S6S7MWPnrjJx5_qBkYeXvAGg&s',
@@ -386,9 +370,7 @@ function airlineLogo(name){
   return logos[name] || logos['PIA'];
 }
 
-/* initial render sorted by "best" (we'll compute score) */
 function scoreFlight(f){
-  // lower price and shorter duration -> better. A simple heuristic:
   const priceScore = 1 / f.price;
   const stopsScore = 1 / (1 + f.stops);
   const ratingScore = f.rating || 4.0;

@@ -1,69 +1,348 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Attractions | Book.pk</title>
+<link rel="stylesheet" href="booking.css">
 <style>
 :root{
   --primary:#003580;
-  --accent:#14a0ff;
-  --card-bg:#ffffff;
-  --text:#0b2545;
-  --muted:#5f6f86;
-  --border:#d9e2ef;
-  --shadow:0 8px 22px rgba(0,0,0,0.08);
+  --accent:#0071c2;
+  --bg:#f5f7fa;
+  --text:#1a1a1a;
+  --muted:#6b6b6b;
 }
-body{margin:0;font-family:Inter,Arial,sans-serif;background:#f2f5f9;color:var(--text);}
-.header{background:var(--primary);padding:14px 24px;color:white;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow);}
-.brand{font-weight:700;font-size:20px;}
-.actions button{background:var(--accent);color:white;border:none;padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:700;}
-.actions button + button{margin-left:10px;}
-.main-wrap{max-width:1200px;margin:22px auto;padding:0 18px;}
-.cards{display:flex;flex-wrap:wrap;gap:14px;}
-.card{background:var(--card-bg);padding:14px;border-radius:12px;border:1px solid var(--border);box-shadow:var(--shadow);width:calc(50% - 7px);display:flex;gap:14px;align-items:center;}
-.attraction-img{width:100px;height:70px;object-fit:cover;border-radius:6px;}
-.info h3{margin:0;font-size:16px;color:var(--text);}
-.info p{margin:4px 0;font-size:13px;color:var(--muted);}
-.btn{background:var(--accent);color:white;padding:6px 12px;border-radius:6px;border:none;cursor:pointer;font-weight:700;}
-@media(max-width:980px){.cards{flex-direction:column;width:100%;}.card{width:100%;}}
+body{
+  margin:0;
+  font-family:Inter, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+.search-form {
+  display: flex;
+  background-color: white;
+  border: 3px solid #febb02;
+  border-radius: 5px;
+  overflow: hidden;
+  max-width: 690px;
+  width: 100%;
+}
+.search-form input {
+  padding: 15px;
+  border: solid 2px #febb02;
+  font-size: 14px;
+}
+.search-form button {
+  background-color: #0071c2;
+  color: white;
+  padding: 15px 25px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+.container{
+  max-width:1200px;
+  margin:30px auto;
+  padding:0 20px;
+}
+h1{
+  font-size:28px;
+  margin-bottom:5px;
+}
+.subtitle{
+  color:var(--muted);
+  margin-bottom:20px;
+}
+.tabs{
+  display:flex;
+  gap:25px;
+  border-bottom:1px solid #ddd;
+  margin-bottom:25px;
+}
+.tab{
+  padding:10px 0;
+  font-weight:600;
+  cursor:pointer;
+  color:#444;
+}
+.tab.active{
+  color:var(--accent);
+  border-bottom:3px solid var(--accent);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+  gap:20px;
+}
+.card{
+  position:relative;
+  border-radius:12px;
+  overflow:hidden;
+  height:180px;
+  cursor:pointer;
+}
+.card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+.card-info{
+  position:absolute;
+  bottom:14px;
+  left:14px;
+  color:white;
+  z-index:1;
+}
+.card-info h3{
+  margin:0;
+  font-size:18px;
+}
+.card-info p{
+  margin:4px 0 0;
+  font-size:14px;
+  opacity:0.9;
+}
+
+@media(max-width:600px){
+  h1{font-size:22px}
+}
 </style>
 </head>
 <body>
-<header class="header">
-  <div class="brand">Book.pk</div>
-  <div class="actions">
-    <button onclick="window.location.href='bookingdesktop.html'">Go Back</button>
-    <button onclick="alert('Filter Attractions')">Filter</button>
+
+<div class="navbar">
+  <div class="navbar-left">Book.pk</div>
+  <div class="navbar-center">
+    <a href="flights.html" class="nav-link">Flights</a>
+    <a href="carrentalpage.html" class="nav-link">Car Rentals</a>
+    <a href="attractions.html" class="nav-link">Attractions</a>
+    <a href="airporttaxis.html" class="nav-link">Airport Taxis</a>
+    <a href="bookingdesktop.html" class="nav-link active">desktop</a>
   </div>
-</header>
+  <div class="navbar-right">
+    <button onclick="window.location.href='desktopprofile.html'">View Profile</button>
+  </div>
+</div>
 
-<main class="main-wrap">
-  <h2 style="margin-bottom:18px;">Popular Attractions</h2>
-  <div class="cards" id="attractionCards"></div>
-</main>
+  <div class="search-box">
+    <form class="search-form">
+      <input type="text" placeholder="Where are you going?">
+      <input type="text" placeholder="Check-in date">
+      <input type="text" placeholder="Check-out date">
+      <button type="submit">🔍︎</button>
+    </form>
+  </div>
 
-<script>
-const attractions = [
-  {name:'Faisal Mosque', city:'Islamabad', price:0, img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZAZuyVkJBpAL3PMs2CDEEHwi4vXzc2-pT5g&s'},
-  {name:'Lahore Fort', city:'Lahore', price:300, img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTzeGAg3NR_EXjMsvc68Y62DnVTY9tYsfmrQ&s'},
-  {name:'Clifton Beach', city:'Karachi', price:0, img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-7oQoBdS1HuRxX_eJ8ELL89E8vpiWtSUCnQ&s'},
-  {name:'Mohenjo Daro', city:'Sindh', price:500, img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4sWmVzwKol_BSx91wdH7p5wQVVi2STVoITA&s'}
-];
-
-const container = document.getElementById('attractionCards');
-attractions.forEach(a=>{
-  const card = document.createElement('div'); card.className='card';
-  card.innerHTML = `
-    <img src="${a.img}" alt="${a.name}" class="attraction-img">
-    <div class="info">
-      <h3>${a.name}</h3>
-      <p>City: ${a.city} • Price Rs ${a.price}</p>
-      <button class="btn">Book Now</button>
+<div class="container">
+  <h1>Explore more destinations</h1>
+  <div class="subtitle">Find things to do in cities around the world</div>
+  <div class="tabs">
+    <div class="tab active">Europe</div>
+    <div class="tab">North America</div>
+    <div class="tab">Asia</div>
+    <div class="tab">Africa</div>
+    <div class="tab">Oceania</div>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk8GfWW4iEmIqVrZHL9b35xTd6rtRIUNri7g&s" alt="">
+      <div class="card-info">
+        <h3>UNITED KINGDOM</h3>
+        <p>3968 things to do</p>
+      </div>
     </div>
-  `;
-  container.appendChild(card);
-});
-</script>
+    <div class="card">
+      <img src="https://cdn.britannica.com/82/167882-050-8F4AC206/Blue-Mosque-Istanbul.jpg" alt="">
+      <div class="card-info">
+        <h3>TURKEY</h3>
+        <p>2718 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://www.cignaglobal.com/static/cigna-rebranding/images/cignaglobal-uvsl/country-guide/europe/belgium/country-guide-belgium-hero.webp" alt="">
+      <div class="card-info">
+        <h3>BELGIUM</h3>
+        <p>3998 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://www.telegraph.co.uk/content/dam/briefs/2025/03/07/TELEMMGLPICT000407971652_17413657175260_trans_NvBQzQNjv4Bq44rdSC6sTNv0-awk2LQJvkR8YSybYNWDTYrGStsI8ko.jpeg?imwidth=640" alt="">
+      <div class="card-info">
+        <h3>AMSTERDAM</h3>
+        <p>2099 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://static.independent.co.uk/2023/04/19/13/iStock-971381072.jpg" alt="">
+      <div class="card-info">
+        <h3>DENMARK</h3>
+        <p>6990 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://image.cnbcfm.com/api/v1/image/102737319-GettyImages-117072015.jpg?v=1668607242" alt="">
+      <div class="card-info">
+        <h3>IRELAND</h3>
+        <p>3487 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cloudfront-us-east-1.images.arcpublishing.com/christies/7V7L5LIDUFD5RKHLDMEKANCTTE.jpg" alt="">
+      <div class="card-info">
+        <h3>SCOTLAND</h3>
+        <p>3487 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSMi8PApvGnj1MaY2hibW9ZELlqcKqMrx2tw&s" alt="">
+      <div class="card-info">
+        <h3>NORWAY</h3>
+        <p>3487 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://images.contentstack.io/v3/assets/blt06f605a34f1194ff/bltbe3b962ada1daf09/68ac66beabe6103e0f153b81/BCC-2025-EXPLORER-FINLAND-FIRST-TIME-IN-COUNTRY-HEADER_MOBILE.jpg?format=webp&quality=60&width=1440" alt="">
+      <div class="card-info">
+        <h3>FINLAND</h3>
+        <p>3487 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://cdn.britannica.com/20/191120-050-B6C0B7E9/village-Hallstatt-Alps-Austria.jpg" alt="">
+      <div class="card-info">
+        <h3>AUSTRIA</h3>
+        <p>3487 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://www.investmentmonitor.ai/wp-content/uploads/sites/7/2022/08/GettyImages-1237570768.jpg" alt="">
+      <div class="card-info">
+        <h3>NETHERLAND</h3>
+        <p>3487 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://www.essential-business.pt/wp-content/uploads/2019/06/safe1024x683.jpg" alt="">
+      <div class="card-info">
+        <h3>PORTUGAL</h3>
+        <p>7480 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://www.nationsencyclopedia.com/photos/italy-1098.jpg" alt="">
+      <div class="card-info">
+        <h3>ITALY</h3>
+        <p>3487 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://www.eiu.com/n/wp-content/uploads/2022/03/shutterstock_1923669935-scaled.jpg" alt="">
+      <div class="card-info">
+        <h3>RUSSIA</h3>
+        <p>3487 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://i.natgeofe.com/k/54b5e731-f8d6-4a93-92e0-b7b137cac411/france-champs-elysees-paris.jpg?wp=1&w=1084.125&h=609" alt="">
+      <div class="card-info">
+        <h3>FRANCE</h3>
+        <p>3487 things to do</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://gersonrelocation.com/wp-content/uploads/2023/11/The-Cologne-Cathedral-and-Hohenzollern-bridge-across-the-Rhine-river-in-Germany.png" alt="">
+      <div class="card-info">
+        <h3>GERMANY</h3>
+        <p>3487 things to do</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-container">
+
+    <div class="footer-column">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Manage your trips</a></li>
+        <li><a href="#">Attractions help centre</a></li>
+        <li><a href="#">Safety resource centre</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Discover</h4>
+      <ul>
+        <li><a href="#">Genius loyalty programme</a></li>
+        <li><a href="#">Seasonal and holiday deals</a></li>
+        <li><a href="#">Travel articles</a></li>
+        <li><a href="#">Booking.com for Business</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Terms and settings</h4>
+      <ul>
+        <li><a href="#">Privacy Notice</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Accessibility Statement</a></li>
+        <li><a href="#">Partner dispute</a></li>
+        <li><a href="#">Modern Slavery Statement</a></li>
+        <li><a href="#">Human Rights Statement</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Partners</h4>
+      <ul>
+        <li><a href="#">Extranet login</a></li>
+        <li><a href="#">Partner help</a></li>
+        <li><a href="#">List your property</a></li>
+        <li><a href="#">Become an affiliate</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>About</h4>
+      <ul>
+        <li><a href="#">About Booking.com</a></li>
+        <li><a href="#">How we work</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Press centre</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Investor relations</a></li>
+        <li><a href="#">Corporate contact</a></li>
+        <li><a href="#">Content guidelines and reporting</a></li>
+      </ul>
+    </div>
+
+  </div>
+</footer>
+<div class="footer">
+    <p>&copy; 2025 Booking.com | All rights reserved</p>
+    <div class="social-links">
+      <a href="mailto:info@bookingclone.com">Email</a> |
+      <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a> |
+      <a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a> |
+      <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a> |
+      <a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a> |
+      <a href="https://www.bookingclone.com" target="_blank" rel="noopener">Website</a>
+    </div>
+  </div>
 </body>
 </html>
